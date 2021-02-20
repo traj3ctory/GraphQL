@@ -1,16 +1,20 @@
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const schema = require('./schema/schema');
-const mongoose = require('mongoose');
 
 const app = express();
 
-// connect to mlab database
-// make sure to replace my db string & creds with your own
-mongoose.connect('mongodb://ninja:test@ds161148.mlab.com:61148/graphql-ninja')
-mongoose.connection.once('open', () => {
-    console.log('conneted to database');
+
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://traj3ctory:<CharMZ06>@cluster0.ic2kd.mongodb.net/graphQL?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+client.connect(err => {
+    const collection = client.db("test").collection("devices");
+    // perform actions on the collection object
+    console.log('connected to mongodb')
+    client.close();
 });
+
 
 // bind express with graphql
 app.use('/graphql', graphqlHTTP({
