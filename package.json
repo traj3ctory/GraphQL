@@ -18,11 +18,11 @@
     },
     "homepage": "https://github.com/traj3ctory/GraphQL#readme",
     "dependencies": {
-        "nodemon": "^2.0.7",
         "express": "^4.16.2",
         "express-graphql": "^0.6.12",
         "graphql": "^0.13.1",
         "lodash": "^4.17.5",
-        "mongoose": "^5.0.9"
+        "mongoose": "^5.0.9",
+        "nodemon": "^2.0.7"
     }
 }

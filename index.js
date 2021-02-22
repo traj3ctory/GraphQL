@@ -1,20 +1,31 @@
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const schema = require('./schema/schema');
+const mongoose = require('mongoose');
 
 const app = express();
 
 
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://traj3ctory:<CharMZ06>@cluster0.ic2kd.mongodb.net/graphQL?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-client.connect(err => {
-    const collection = client.db("test").collection("devices");
-    // perform actions on the collection object
-    console.log('connected to mongodb')
-    client.close();
-});
+// const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://traj3ctory:CharMZ06@cluster0.ic2kd.mongodb.net/User?retryWrites=true&w=majority";
+// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, useNewUrlParser: true });
 
+// client.connect()
+//     .then(() => {
+//         console.log('connected to mongodb')
+//         client.close();
+//     })
+//     .catch(err => {
+//         console.error('App starting error:', err.stack);
+//         client.close();
+//         process.exit(1)
+//     });
+
+
+mongoose.connect(uri)
+mongoose.connection.once('open', () => {
+    console.log('conneted to database');
+});
 
 // bind express with graphql
 app.use('/graphql', graphqlHTTP({
@@ -22,6 +33,6 @@ app.use('/graphql', graphqlHTTP({
     graphiql: true
 }));
 
-app.listen(4000, () => {
+app.listen(7000, () => {
     console.log('now listening for requests on port 4000');
 });
