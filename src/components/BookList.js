@@ -23,14 +23,16 @@ class BookList extends Component {
     if (data.loading) {
       return <div>Loading Books...</div>;
     } else {
+      let count = 1;
       return data.books.map((book) => {
         return (
           <li
+            className="list-group-item"
             key={book.id}
             onClick={(e) => {
               this.setState({ selected: book.id });
             }}
-          >
+          >{count++}.)&ensp;
             {book.name}
           </li>
         );
@@ -40,8 +42,16 @@ class BookList extends Component {
   render() {
     return (
       <>
-        <ul id="book-list">{this.displayBooks()}</ul>
-        <BookDetails bookId={this.state.selected} />
+        <div className="card border-0 shadow mb-3">
+          <div className="card-body">
+            <ul className="list-group-flush">{this.displayBooks()}</ul>
+          </div>
+        </div>
+        <div className="card border-0 shadow">
+          <div className="card-body">
+            <BookDetails bookId={this.state.selected} />
+          </div>
+        </div>
       </>
     );
   }
