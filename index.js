@@ -26,7 +26,7 @@ const uri = "mongodb+srv://traj3ctory:CharMZ06@cluster0.ic2kd.mongodb.net/User?r
 //         process.exit(1)
 //     });
 
-
+ 
 mongoose.connect(uri)
 mongoose.connection.once('open', () => {
     console.log('conneted to database');
