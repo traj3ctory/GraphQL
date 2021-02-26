@@ -27,7 +27,9 @@ class AddBook extends Component {
     let data = this.props.getAuthorsQuery;
     if (data.loading) {
       return <option disabled>Loading Author</option>;
-    } else {
+    } else if (data.error) {
+      return <div>Coonection Error!</div>;
+    } else if (data.books !== null) {
       return data.authors.map((author) => {
         return (
           <option key={author.id} value={author.id}>
@@ -62,6 +64,7 @@ class AddBook extends Component {
                 <input
                   type="text"
                   className="form-control"
+                  placeholder="Book Name..."
                   onChange={(e) => this.setState({ name: e.target.value })}
                 />
               </div>
@@ -71,6 +74,7 @@ class AddBook extends Component {
                 <input
                   type="text"
                   className="form-control"
+                  placeholder="Genre..."
                   onChange={(e) => this.setState({ genre: e.target.value })}
                 />
               </div>
@@ -81,7 +85,7 @@ class AddBook extends Component {
                   className="custom-select"
                   onChange={(e) => this.setState({ authorId: e.target.value })}
                 >
-                  <option value="">--Select Author--</option>
+                  <option value="0">--Select Author--</option>
                   {this.displayAuthors()}
                 </select>
               </div>

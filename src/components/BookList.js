@@ -20,9 +20,12 @@ class BookList extends Component {
 
   displayBooks() {
     let data = this.props.data;
+    console.log(data)
     if (data.loading) {
       return <div>Loading Books...</div>;
-    } else {
+    } else if (data.error) {
+      return <div>Coonection Error!</div>;
+    } else if (data.books !== null) {
       let count = 1;
       return data.books.map((book) => {
         return (
@@ -32,7 +35,8 @@ class BookList extends Component {
             onClick={(e) => {
               this.setState({ selected: book.id });
             }}
-          >{count++}.)&ensp;
+          >
+            {count++}.)&ensp;
             {book.name}
           </li>
         );
